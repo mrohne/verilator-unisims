@@ -1,4 +1,3 @@
-module PLLE2_BASE
 module PLLE2_BASE (
   CLKFBOUT,
   CLKOUT0,
