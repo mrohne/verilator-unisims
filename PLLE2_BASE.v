@@ -1,29 +1,57 @@
-module PLLE2_BASE #(
-    parameter CLKFBOUT_MULT = 5,
-    parameter DIVCLK_DIVIDE = 1,
-    parameter CLKIN1_PERIOD = 0.0,
-    parameter CLKOUT0_DIVIDE = 1,
-    parameter CLKOUT1_DIVIDE = 1
-    // Add other DIVIDEs as needed
-)(
-    input  logic CLKIN1,
-    input  logic CLKFBIN,
-    input  logic RST,
-    input  logic PWRDWN,
-    output logic CLKOUT0,
-    output logic CLKOUT1,
-    output logic CLKFBOUT,
-    output logic LOCKED
+module PLLE2_BASE
+module PLLE2_BASE (
+  CLKFBOUT,
+  CLKOUT0,
+  CLKOUT1,
+  CLKOUT2,
+  CLKOUT3,
+  CLKOUT4,
+  CLKOUT5,
+  LOCKED,
+  CLKFBIN,
+  CLKIN1,
+  PWRDWN,
+  RST
 );
-    // In Verilator, we usually assume the PLL locks instantly 
-    // or after a small delay.
-    assign LOCKED = !RST && !PWRDWN;
-    
-    // Simplest approach: Pass-through (Frequency is incorrect, but edges exist)
-    // If you need actual frequency scaling, you must generate a new clock 
-    // in your C++ testbench and tie it to these pins.
-    assign CLKOUT0 = CLKIN1;
-    assign CLKOUT1 = CLKIN1;
-    assign CLKFBOUT = CLKIN1;
+
+  parameter BANDWIDTH = "OPTIMIZED";
+  parameter integer CLKFBOUT_MULT = 5;
+  parameter real CLKFBOUT_PHASE = 0.000;
+  parameter real CLKIN1_PERIOD = 0.000;
+  parameter integer CLKOUT0_DIVIDE = 1;
+  parameter real CLKOUT0_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT0_PHASE = 0.000;
+  parameter integer CLKOUT1_DIVIDE = 1;
+  parameter real CLKOUT1_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT1_PHASE = 0.000;
+  parameter integer CLKOUT2_DIVIDE = 1;
+  parameter real CLKOUT2_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT2_PHASE = 0.000;
+  parameter integer CLKOUT3_DIVIDE = 1;
+  parameter real CLKOUT3_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT3_PHASE = 0.000;
+  parameter integer CLKOUT4_DIVIDE = 1;
+  parameter real CLKOUT4_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT4_PHASE = 0.000;
+  parameter integer CLKOUT5_DIVIDE = 1;
+  parameter real CLKOUT5_DUTY_CYCLE = 0.500;
+  parameter real CLKOUT5_PHASE = 0.000;
+  parameter integer DIVCLK_DIVIDE = 1;
+  parameter real REF_JITTER1 = 0.010;
+  parameter STARTUP_WAIT = "FALSE";
+
+  output CLKFBOUT;
+  output CLKOUT0;
+  output CLKOUT1;
+  output CLKOUT2;
+  output CLKOUT3;
+  output CLKOUT4;
+  output CLKOUT5;
+  output LOCKED;
+
+  input CLKFBIN;
+  input CLKIN1;
+  input PWRDWN;
+  input RST;
 
 endmodule // PLLE2_BASE
